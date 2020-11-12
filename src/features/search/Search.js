@@ -1,10 +1,21 @@
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
 
-const Search = ({ searchTerm, onChangeHandler, onClearSearchTermHandler }) => (
-  <>
-    <input type="text" value={searchTerm} onChange={onChangeHandler} />
-    <button onClick={onClearSearchTermHandler}>X</button>
+import {
+  setSearchTerm,
+  clearSearchTerm,
+  selectSearchTerm
+} from './searchSlice';
+
+const Search = () => {
+  const searchTerm = useSelector(selectSearchTerm);
+  const dispatch = useDispatch();
+
+  return (
+    <>
+    <input type="text" value={searchTerm} onChange={(e) => dispatch(setSearchTerm(e.target.value))} />
+    <button onClick={() => dispatch(clearSearchTerm())}>X</button>
   </>
-);
+  )};
 
 export default Search;

@@ -1,26 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
 import { selectSearchTerm } from "../search/searchSlice";
 
-export const myThingsSlice = createSlice({
-  name: "myThings",
-  initialState: {
-    things: [],
-  },
-  reducers: {
-    addThing: (state, action) => {
-      state.things.push(action.payload);
-    },
-    removeThing: (state, action) => {
-      state.things = state.things.filter(
-        (thing) => thing.name !== action.payload.name
-      );
-    },
-  },
+const initialState = [];
+
+const myThingsReducer = (state=initialState, action) => {
+    switch (action.type) {
+      case 'myThings/addThing':
+        const newThing = action.payload;
+        return [...state, newThing]
+      case 'myThings/removeThing':
+        const thingToRelease = action.payload.name;
+        return state.filter(thing => thing.name !== thingToRelease)
+      default:
+        return state;
+    }
+}
+  
+export const removeThing = (thing) => ({
+    type: 'myThings/removeThing',
+    payload: thing
 });
 
-export const { addThing, removeThing } = myThingsSlice.actions;
-
-export const selectMyThings = (state) => state.myThings.things;
+export const selectMyThings = (state) => state.myThings;
 
 export const selectFilteredMyThings = (state) => {
   const myThings = selectMyThings(state);
@@ -31,4 +31,4 @@ export const selectFilteredMyThings = (state) => {
   );
 };
 
-export default myThingsSlice.reducer;
+export default myThingsReducer;

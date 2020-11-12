@@ -1,9 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { createStore, combineReducers } from "redux";
+import { Provider } from "react-redux";
+
 import "./index.css";
 import App from "./app/App";
-import store from "./app/store";
-import { Provider } from "react-redux";
+import allThingsReducer from "./features/allThings/allThingsSlice";
+import myThingsReducer from "./features/myThings/myThingsSlice";
+import searchReducer from "./features/search/searchSlice";
+
+const rootReducer = combineReducers({
+  myThings: myThingsReducer,
+  search: searchReducer,
+  allThings: allThingsReducer
+});
+
+const store = createStore(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>

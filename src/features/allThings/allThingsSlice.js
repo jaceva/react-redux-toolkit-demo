@@ -1,41 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
 import { selectSearchTerm } from "../search/searchSlice";
 
-export const allThingsSlice = createSlice({
-  name: "allThings",
-  initialState: {
-    things: [],
-    isLoading: false,
-    hasError: false,
-  },
-  reducers: {
-    startGetThings: (state) => {
-      state.isLoading = true;
-      state.hasError = false;
-    },
-    endGetThingsWithSuccess: (state, action) => {
-      state.isLoading = false;
-      state.hasError = false;
-      state.things = action.payload;
-    },
-    endGetThingsWithError: (state) => {
-      state.isLoading = false;
-      state.hasError = true;
-      state.things = [];
-    },
-  },
+const thingsData = [
+  {name: 'pikachu', img: 'https://img.pokemondb.net/artwork/large/pikachu.jpg'}, 
+  {name: 'charizard', img: 'https://img.pokemondb.net/artwork/large/charizard.jpg'}, 
+  {name: 'squirtle', img: 'https://img.pokemondb.net/artwork/large/squirtle.jpg'}, 
+  {name: 'ivysaur', img: 'https://img.pokemondb.net/artwork/large/ivysaur.jpg'},
+  {name: 'pidgey', img: 'https://img.pokemondb.net/artwork/large/pidgey.jpg'},
+  {name: 'weedle', img: 'https://img.pokemondb.net/artwork/large/weedle.jpg'},
+  {name: 'articuno', img: 'https://img.pokemondb.net/artwork/large/articuno.jpg'},
+  {name: 'mewtwo', img: 'https://img.pokemondb.net/artwork/large/mewtwo.jpg'},
+  {name: 'gengar', img: 'https://img.pokemondb.net/artwork/large/gengar.jpg'},
+  {name: 'dragonite', img: 'https://img.pokemondb.net/artwork/large/dragonite.jpg'},
+  {name: 'nidorino', img: 'https://img.pokemondb.net/artwork/large/nidorino.jpg'},
+]
+
+const allThingsReducer = (state=thingsData) => state;
+
+export const addThing = (thing) => ({
+  type: 'myThings/addThing',
+  payload: thing
 });
 
-export const {
-  startGetThings,
-  endGetThingsWithSuccess,
-  endGetThingsWithError,
-} = allThingsSlice.actions;
-
-export const selectAllThings = (state) => state.allThings.things;
-
 export const selectFilteredAllThings = (state) => {
-  const allThings = selectAllThings(state);
+  const allThings = state.allThings;
   const searchTerm = selectSearchTerm(state);
 
   return allThings.filter((thing) =>
@@ -43,16 +30,4 @@ export const selectFilteredAllThings = (state) => {
   );
 };
 
-export const loadThings = () => async (dispatch) => {
-  dispatch(startGetThings());
-
-  try {
-    const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100");
-    const json = await data.json();
-    dispatch(endGetThingsWithSuccess(json["results"]));
-  } catch (_err) {
-    dispatch(endGetThingsWithError());
-  }
-};
-
-export default allThingsSlice.reducer;
+export default allThingsReducer;
