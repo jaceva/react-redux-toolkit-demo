@@ -1,6 +1,6 @@
 import { selectSearchTerm } from "../search/searchSlice";
 
-const thingsData = [
+const initialAllThingsState = [
   {name: 'pikachu', img: 'https://img.pokemondb.net/artwork/large/pikachu.jpg'}, 
   {name: 'charizard', img: 'https://img.pokemondb.net/artwork/large/charizard.jpg'}, 
   {name: 'squirtle', img: 'https://img.pokemondb.net/artwork/large/squirtle.jpg'}, 
@@ -14,12 +14,7 @@ const thingsData = [
   {name: 'nidorino', img: 'https://img.pokemondb.net/artwork/large/nidorino.jpg'},
 ]
 
-const allThingsReducer = (state=thingsData) => state;
-
-export const addThing = (thing) => ({
-  type: 'myThings/addThing',
-  payload: thing
-});
+const allThingsReducer = (state=initialAllThingsState) => state;
 
 export const selectFilteredAllThings = (state) => {
   const allThings = state.allThings;

@@ -1,6 +1,6 @@
-const initialState = ''
+const initialSearchState = ''
 
-const searchReducer = (state=initialState, action) => {
+const searchReducer = (state=initialSearchState, action) => {
   switch (action.type) {
     case 'search/setSearch':
       return action.payload;

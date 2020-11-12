@@ -2,9 +2,12 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  addThing,
   selectFilteredAllThings,
 } from "./allThingsSlice";
+
+import {
+  addThing,
+} from '../myThings/myThingsSlice';
 
 const AllThings = () => {
   const things = useSelector(selectFilteredAllThings);

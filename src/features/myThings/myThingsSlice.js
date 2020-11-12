@@ -1,20 +1,25 @@
 import { selectSearchTerm } from "../search/searchSlice";
 
-const initialState = [];
+const initialMyThingsState = [];
 
-const myThingsReducer = (state=initialState, action) => {
+const myThingsReducer = (state=initialMyThingsState, action) => {
     switch (action.type) {
       case 'myThings/addThing':
         const newThing = action.payload;
         return [...state, newThing]
       case 'myThings/removeThing':
-        const thingToRelease = action.payload.name;
-        return state.filter(thing => thing.name !== thingToRelease)
+        const thingToRemove = action.payload.name;
+        return state.filter(thing => thing.name !== thingToRemove)
       default:
         return state;
     }
 }
-  
+
+export const addThing = (thing) => ({
+  type: 'myThings/addThing',
+  payload: thing
+});
+
 export const removeThing = (thing) => ({
     type: 'myThings/removeThing',
     payload: thing
